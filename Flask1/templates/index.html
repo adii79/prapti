@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+    <title>Image Quality Predictor</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        img { max-width: 400px; margin-bottom: 20px; }
+        table { border-collapse: collapse; margin-top: 20px; }
+        table, th, td { border: 1px solid black; padding: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Image Quality Predictor</h1>
+    <form method="POST" enctype="multipart/form-data">
+        <input type="file" name="image" required>
+        <button type="submit">Upload</button>
+    </form>
+
+    {% if result %}
+        <h2>Results for {{ result.filename }}</h2>
+        <img src="{{ url_for('static', filename='uploads/' + result.filename) }}" alt="Uploaded Image">
+        <table>
+            <tr>
+                <th>Feature</th>
+                <th>Predicted</th>
+                <th>Calculated</th>
+                <th>Similarity (%)</th>
+                <th>Weight</th>
+            </tr>
+            {% for i in range(result.prediction|length) %}
+            <tr>
+                <td>{{ ["Contrast","Entropy","Local Contrast","Local Entropy","Saturation"][i] }}</td>
+                <td>{{ "%.2f"|format(result.prediction[i]) }}</td>
+                <td>{{ "%.2f"|format(result.calc_results[i]) }}</td>
+                <td>{{ "%.2f"|format(result.similarity[i]) }}</td>
+                <td>{{ "%.2f"|format(result.weights[i]) }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <h3>Final Value: {{ "%.2f"|format(result.final_value) }}</h3>
+    {% endif %}
+</body>
+</html>
