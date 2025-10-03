@@ -12,8 +12,8 @@ form prapti&co.
 ## RUN
  
 # For fusion 
-cd exposureFusion -> pyhton example.py
-cd Flask1 -> python one.py
+- cd exposureFusion -> pyhton example.py
+- cd Flask1 -> python one.py
 
 ## Goldfish Images
 ![Goldfish Image 1](goldfish/img1.png)
